@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>Вход | Orient Legalization</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- общий CSS сайта -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="login-page">
+  <div class="login-wrapper">
+    <form class="login-card" method="post" novalidate>
+      <h1 class="login-title">Вход в кабинет</h1>
+
+      {% if error %}
+        <p class="login-error">{{ error }}</p>
+      {% endif %}
+
+      <div class="input-group">
+        <label for="username">Логин</label>
+        <input id="username" name="username"
+               type="text" autocomplete="username" required>
+      </div>
+
+      <div class="input-group">
+        <label for="password">Пароль</label>
+        <input id="password" name="password"
+               type="password" autocomplete="current-password" required>
+      </div>
+
+      <button type="submit" class="btn-primary">Войти</button>
+    </form>
+  </div>
+</body>
+</html>

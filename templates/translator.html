@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>Переводчик документов | Orient Legalization</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- общий CSS сайта -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="translator-page">
+  <div class="translator-wrapper">
+    <form class="translator-card" method="post" enctype="multipart/form-data">
+      <h1>Переводчик документов</h1>
+
+      {% if error %}
+        <p class="login-error">{{ error }}</p>
+      {% endif %}
+
+      {% if success %}
+        <p class="success">{{ success }}</p>
+        {% if filename %}
+          <p><a href="{{ url_for('download', filename=filename) }}" download>Скачать переведённый файл</a></p>
+        {% endif %}
+      {% endif %}
+
+      <div class="form-row">
+        <label for="upl">Выберите файл (TXT, PDF, DOCX):</label>
+        <input id="upl" type="file" name="file" required>
+      </div>
+
+      <div class="form-row">
+        <label for="lang">Язык перевода:</label>
+        <select id="lang" name="language">
+          <option value="en">Английский</option>
+          <option value="ru">Русский</option>
+          <option value="es">Испанский</option>
+          <option value="fr">Французский</option>
+          <option value="de">Немецкий</option>
+        </select>
+      </div>
+
+      <div class="form-row">
+        <label for="fmt">Формат вывода:</label>
+        <select id="fmt" name="format">
+          <option value="original">Как исходный</option>
+          <option value="txt">TXT</option>
+          <option value="docx">DOCX</option>
+          <option value="pdf">PDF</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn-submit">Перевести</button>
+    </form>
+  </div>
+</body>
+</html>

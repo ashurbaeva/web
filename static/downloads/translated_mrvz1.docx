@@ -1,0 +1,106 @@
+Ministry of Education of the Republic of Belarus
+Education Institution "Belarusian State University of Informatics and Radio Electronics"
+Faculty of Information Technology and Management
+Department of Intellectual Information Technologies
+Laboratory work report 1
+In the discipline: models for solving problems in intellectual systems
+On the topic: calculating the pair work (division) of the components of two vectors of numbers
+Completed Art.gr.221731: Ashurbaeva S.M.
+Checked: Ivashenko V.P.
+Minsk 2025
+# Laboratory work in discipline
+# Models for solving problems in intellectual systems
+# Associated by students of group 221731 BSUIR Ashurbaeva S.M.
+# This file contains the implementation of the base system.
+# Option 5
+# The code has been made that solves the algorithm for calculating the integer private pair of 4-bit
+# numbers with division with the restoration of a partial balance.
+# 02.04.2025 Project end date
+# performing mathematical operations.
+Import MatPlotlib.pyplot as PLT
+Def inte_to_bin (num, width = 4):
+"" "Returns the binary line of Width length for Num." ""
+Return Format (Num & ((1 << Width) - 1), f'0 {width} b ')
+Def bin_to_int (bin_str):
+"" "Transforms the binary line into a whole number." ""
+RETURN Int (BIN_STR, 2)
+Def pipeline_divide (bin_dividend, bin_divisor, width = 4):
+"" ""
+Division with a conveyor algorithm for restoring the balance for two 4-bit numbers.
+Returns a list of stages (description, binary residue, binary private),
+as well as the final Q and R.
+"" ""
+Dividend = bin_to_int (bin_dividend)
+Divisor = bin_to_int (bin_divisor)
+if divisor == 0:
+Raise Valuerror ("Division into zero is not allowed!")
+REMAINDER = 0
+quotient = 0
+Steps = []
+For i in Range (width):
+# We move the remainder and serve the next senior bit of the divided
+Current_Bit = (Dividend >> (Width - 1 - I)) & 1
+REMAINDER = (REMAINDER << 1) |Current_Bit
+Desc = F "Stage {I+1}: BIT = {CURRENT_BIT}"
+# Restoring the balance
+If Remainder> = Divisor:
+Before = Remacarder
+REMAINDER -= Divisor
+q_bit = 1
+Desc += f ", {before} - {divisor} = {Remacarder}"
+Else:
+q_bit = 0
+Desc += F ", do not subtract (residue = {Remacarder})"
+quotient = (quotient << 1) |Q_BIT
+stps.ppend ((Desc,
+Format (REMAINDER, F'0 {width+1} b '),
+Format (quotient, f'0 {width} b ')))
+# Final stage
+stps.ppend (("completion",
+Format (REMAINDER, F'0 {width+1} b '),
+Format (quotient, f'0 {width} b ')))
+Return Steps, QUOTIENT, REMAINDER
+Def Main ():
+Print ("conveyor division of 4-bit numbers with restoration of the balance")
+try:
+n = int ("enter the number of steam (each steam: divisible and divisor from 0 to 15):"))
+Except Valuerror:
+Print ("Error: Enter the whole number.")
+Return
+results = []
+For IDX in Range (1, N+1):
+try:
+a = int (f "\ nara {idx}. Divisable a (0–15):"))
+b = int (f "pair {idX}. Diviner B (1–15):"))
+Except Valuerror:
+Print ("Error: Enter the whole number.")
+Return
+if not (0 <= a <16 and 1 <= b <16):
+Print ("Error: the numbers should be in the range 0–15 (the divider is not zero).")
+Return
+bin_a = int_to_bin (a, 4)
+bin_b = int_to_bin (b, 4)
+print (f "a = {bin_a} ({a}), b = {bin_b} ({b})") ")
+stps, q, r = pipeline_divide (bin_a, bin_b, 4)
+For Desc, Rem_bin, Q_bin in Steps:
+Print (f "{desc} | Residue: {Rem_bin} | Private (bin): {q_bin}")
+Print (F "Result: Private = {int_to_bin (q, 4)} ({q}), residue = {Format (r, '05b')} ({r})") ")
+results.ppend ((idX, q, r))
+# Building a graph
+xs = [x [0] for x in results]
+ys_q = [x [1] for x in results]
+ys_r = [x [2] for x in results]
+PLT.Figure (figsize = (8, 4))
+PLT.Plot (XS, YS_Q, Marker = 'O', LABEL = "Private")
+PLT.PLOT (XS, YS_R, Marker = 'S', LABEL = "RECOME")
+PLT.Title ("Division of 4-bit numbers")
+PLT.XLABEL ("pair number")
+PLT.YLABEL ("meaning")
+plt.xticks(xs)
+PLT.LEGEND ()
+PLT.GRID (True)
+plt.tight_layout ()
+PLT.SHOW ()
+run __name__ == "__main__":
+Main ()
+Conclusion:

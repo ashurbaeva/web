@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Переводчик документов</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .container { max-width: 600px; margin: 0 auto; }
+        .form-group { margin-bottom: 15px; }
+        .error { color: red; }
+        .success { color: green; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Переводчик документов</h1>
+        
+        {% if error %}
+        <p class="error">{{ error }}</p>
+        {% endif %}
+        
+        {% if success %}
+        <p class="success">{{ success }}</p>
+        {% if filename %}
+        <p><a href="/download/{{ filename }}" download>Скачать переведённый файл</a></p>
+        {% endif %}
+        {% endif %}
+        
+        <form method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label>Выберите файл (TXT, PDF, DOCX):</label>
+                <input type="file" name="file" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Язык перевода:</label>
+                <select name="language">
+                    <option value="en">Английский</option>
+                    <option value="ru">Русский</option>
+                    <option value="es">Испанский</option>
+                    <option value="fr">Французский</option>
+                    <option value="de">Немецкий</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Формат вывода:</label>
+                <select name="format">
+                    <option value="original">Как исходный</option>
+                    <option value="txt">TXT</option>
+                    <option value="docx">DOCX</option>
+                    <option value="pdf">PDF</option>
+                </select>
+            </div>
+            
+            <button type="submit">Перевести</button>
+        </form>
+    </div>
+</body>
+</html>
